@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Vector.h"
+#include "MatrixIterator.h"
 
 #include <vector>
 #include <iostream>
@@ -15,6 +16,7 @@ namespace s2
 		friend Vector operator*(const Matrix& m, const Vector& v);
 
 		friend Matrix& operator<<(Matrix& m, float value);
+		friend Matrix& operator,(Matrix& m, float value);
 
 		float& operator()(int row, int col);
 		float operator()(int row, int col) const;
@@ -26,5 +28,7 @@ namespace s2
 		// Stored in column order.
 		std::vector<float> _values;
 		std::vector<float>::iterator _valuesIterator;
+
+		MatrixIterator _matrixIterator;
 	};
 }

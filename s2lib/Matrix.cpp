@@ -14,6 +14,8 @@ Matrix::Matrix(int rows, int cols, float initialValue)
 
 	_values = vector<float>(Rows * Cols, initialValue);
 	_valuesIterator = _values.begin();
+
+	_matrixIterator = MatrixIterator::CreateRowOrderIterator(Rows, Cols);
 }
 
 Vector s2::operator*(const Matrix& m, const Vector& v)
@@ -42,9 +44,14 @@ Vector s2::operator*(const Matrix& m, const Vector& v)
 
 Matrix& s2::operator<<(Matrix& m, float value)
 {
-	*m._valuesIterator++ = value;
+	m._values[m._matrixIterator.GetIndexAndAdvance()] = value;
 
 	return m;
+}
+
+Matrix& s2::operator,(Matrix& m, float value)
+{
+	return m << value;
 }
 
 float& Matrix::operator()(int row, int col)
